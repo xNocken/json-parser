@@ -1,0 +1,18 @@
+{
+  "calced": 60 / 3,
+  "number": 1,
+  "hex": 0x12,
+  "binary": 0b1001,
+  "string": "string",
+  "boolean": true,
+  "array": [{}, 5, false],
+  "object": {
+    "string": "string",
+    "boolean": true,
+    "array": ["1", "2", "3"]
+  },
+  "hallo": {
+    "gude": { "moinsen": { "rop": "te" } }
+  },
+  "null": null
+}
