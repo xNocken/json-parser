@@ -43,6 +43,8 @@ export class StringParser {
     while (this.isWhitespace() || char === '/') {
       if (char === '/' && this.getNextChar() === '/') {
         this.skipUntil('\n');
+      } else if (char === '/') {
+        return;
       } else {
         this.skipChar();
       }

@@ -9,10 +9,10 @@
   "object": {
     "string": "string",
     "boolean": true,
-    "array": ["1", "2", "3"]
+    "array": ["1", "2", "3"],
   },
   "hallo": {
-    "gude": { "moinsen": { "rop": "te" } }
+    "gude": { "moinsen": { "rop": "te" } },
   },
-  "null": null
+  "null": null,
 }

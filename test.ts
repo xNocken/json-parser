@@ -10,10 +10,10 @@ interface GudeWie extends JsonObject {
   ok: undefined;
 }
 
-const string = fs.readFileSync('replay.json', 'utf8');
+const string = fs.readFileSync('test.json', 'utf8');
 
 console.time();
-const parsed = JSON.customParse<test>(string);
+const parsed = JSON.customParse<GudeWie>(string);
 console.timeEnd();
 
 console.time();
