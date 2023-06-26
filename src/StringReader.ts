@@ -186,6 +186,19 @@ export class StringParser {
 
             break;
 
+          case 'u':
+            const code = parseInt(this.value.substr(this.offset + 2, 4), 16);
+
+            if (isNaN(code)) {
+              throw new Error(`Unexpected escape sequence at ${this.getFormattedPos()}`);
+            }
+
+            result += String.fromCharCode(code);
+
+            this.skipChars(4);
+
+            break;
+
           default:
             throw new Error(`Unexpected escape sequence at ${this.getFormattedPos()}`);
         }
