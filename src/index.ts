@@ -1,6 +1,7 @@
 import solveMath from './solve-math';
 import { StringParser } from './StringReader';
 import '../types/JSON';
+import { Config } from '../types/config';
 
 interface JsonObjectWrapper<T> {
   [key: string]: T;
@@ -75,7 +76,20 @@ const handleObject = (string: StringParser) => {
       throw new Error(`Expected ":" at ${string.getFormattedPos()}`);
     }
 
-    data[key] = handleValue(string);
+    if (string.config.duplicateProps?.includes(key)) {
+      if (data[key] === undefined) {
+        data[key] = [];
+      }
+
+      (<JsonTypes[]>data[key]).push(handleValue(string));
+    } else {
+      if (data[key] !== undefined && string.config.throwOnDuplicate) {
+        throw new Error(`Duplicate property "${key}" at ${string.getFormattedPos()}`);
+      }
+
+      data[key] = handleValue(string);
+    }
+
 
     string.skipWhitespaces();
 
@@ -112,7 +126,7 @@ const handlePrimitive = (string: StringParser) => {
 
   try {
     return solveMath(value);
-  } catch(e) {
+  } catch (e) {
     if (e instanceof Error) {
       throw new Error(`${e.message} at ${string.getFormattedPos()}`);
     }
@@ -139,8 +153,8 @@ const handleValue = (string: StringParser): JsonTypes => {
   }
 };
 
-JSON.customParse = <T extends JsonTypes>(string: string): T => {
-  const parser = new StringParser(string);
+JSON.customParse = <T extends JsonTypes>(string: string, config?: Config): T => {
+  const parser = new StringParser(string, config || {});
 
   return <T>handleValue(parser);
 }

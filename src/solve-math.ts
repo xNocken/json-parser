@@ -21,9 +21,38 @@ const handleBin = (string: StringParser) => {
 }
 
 const handleDecimal = (string: StringParser) => {
-  const number = string.readBefore(cancelChars);
+  let numberString = string.readBefore(cancelChars, false, ['e', 'E']).toLowerCase();
 
-  return parseFloat(number);
+  let hasE = numberString.includes('e');
+  let eDirection = '';
+  let eNumber = '';
+
+  if (hasE) {
+    const eIndex = numberString.indexOf('e');
+
+    eDirection = numberString[eIndex + 1];
+    eNumber = numberString.substring(eIndex + 2);
+
+    numberString = numberString.substring(0, eIndex);
+  }
+
+  const number = parseFloat(numberString);
+
+  if (!hasE) {
+    return number;
+  }
+
+  const eNumberParsed = parseInt(eNumber);
+
+  if (eDirection === '+') {
+    return number * Math.pow(10, eNumberParsed);
+  }
+
+  if (eDirection === '-') {
+    return number / Math.pow(10, eNumberParsed);
+  }
+
+  throw new Error(`Invalid e direction "${eDirection}"`);
 }
 
 const handleValue = (string: StringParser) => {
@@ -195,7 +224,7 @@ const func = (string: StringParser) => {
 }
 
 export default (string: string) => {
-  const stringParser = new StringParser(string, true);
+  const stringParser = new StringParser(string, {}, true);
 
   return func(stringParser);
 }

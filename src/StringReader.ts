@@ -1,12 +1,16 @@
+import { Config } from '../types/config';
+
 export class StringParser {
   value: string;
   offset: number;
   ignoreEndOfFile: boolean;
+  config: Config;
 
-  constructor(value: string, ignoreEndOfFile = false) {
+  constructor(value: string, config: Config, ignoreEndOfFile = false) {
     this.value = value;
     this.offset = 0;
     this.ignoreEndOfFile = ignoreEndOfFile;
+    this.config = config;
   }
 
   skipChar() {
@@ -100,7 +104,7 @@ export class StringParser {
     return char === '\n' || char === '\r';
   }
 
-  readBefore(char: string | string[], allowNewline = false) {
+  readBefore(char: string | string[], allowNewline = false, dontCancelChars: string[] = []) {
     let result = '';
     let lastWasEscape = false;
     let toCheck: string[];
@@ -131,7 +135,7 @@ export class StringParser {
         continue;
       }
 
-      if (toCheck.includes(this.getChar())) {
+      if (toCheck.includes(this.getChar()) && !dontCancelChars.includes(this.getPrevChar())) {
         break;
       }
 
