@@ -55,8 +55,22 @@ const handleDecimal = (string: StringParser) => {
   throw new Error(`Invalid e direction "${eDirection}"`);
 }
 
-const handleValue = (string: StringParser) => {
+const handleValue = (string: StringParser): number => {
   string.skipWhitespaces();
+
+  if (string.getChar() === '-') {
+    string.skipChar();
+
+    return -handleValue(string);
+  }
+
+  if (string.getChar() === '.') {
+    throw new Error('no support for .0 numbers. use 0.0 instead');
+  }
+
+  if (string.getChar() === '+') {
+    string.skipChar();
+  }
 
   const char = string.getChar();
 
