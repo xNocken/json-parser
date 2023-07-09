@@ -115,9 +115,17 @@ export class StringParser {
       toCheck = char;
     }
 
+    const containsNewline = toCheck.includes('\n') || toCheck.includes('\r');
+
     while (true) {
-      if (this.isCurrentNewline() && !allowNewline) {
-        throw new Error(`Unexpected newline at ${this.getFormattedPos()}`);
+      if (this.isCurrentNewline()) {
+        if (!allowNewline) {
+          throw new Error(`Unexpected newline at ${this.getFormattedPos()}`);
+        }
+
+        if (containsNewline) {
+          break;
+        }
       }
 
       if (lastWasEscape) {
@@ -159,9 +167,17 @@ export class StringParser {
       toCheck = char;
     }
 
+    const containsNewline = toCheck.includes('\n') || toCheck.includes('\r');
+
     while (true) {
-      if (this.isCurrentNewline() && !allowNewline) {
-        throw new Error(`Unexpected newline at ${this.getFormattedPos()}`);
+      if (this.isCurrentNewline()) {
+        if (!allowNewline) {
+          throw new Error(`Unexpected newline at ${this.getFormattedPos()}`);
+        }
+
+        if (containsNewline) {
+          break;
+        }
       }
 
       if (this.getChar() === '\\') {
