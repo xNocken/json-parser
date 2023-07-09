@@ -1,6 +1,5 @@
 import solveMath from './solve-math';
 import { StringParser } from './StringReader';
-import '../types/JSON';
 import { Config } from '../types/config';
 
 interface JsonObjectWrapper<T> {
