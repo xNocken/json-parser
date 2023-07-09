@@ -153,7 +153,7 @@ const handleValue = (string: StringParser): JsonTypes => {
   }
 };
 
-JSON.customParse = <T extends JsonTypes>(string: string, config?: Config): T => {
+export default <T extends JsonTypes>(string: string, config?: Config): T => {
   const parser = new StringParser(string, config || {});
 
   return <T>handleValue(parser);

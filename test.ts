@@ -1,6 +1,6 @@
 import fs from 'fs';
 
-import './src';
+import customParse from './src';
 import type { JsonObject } from './src';
 
 interface GudeWie extends JsonObject {
@@ -10,16 +10,19 @@ interface GudeWie extends JsonObject {
   ok: undefined;
 }
 
-const string = fs.readFileSync('test.json', 'utf8');
+const string = fs.readFileSync('test3.json', 'utf8');
 
 console.time();
-const parsed = JSON.customParse<GudeWie>(string);
+const parsed = customParse<GudeWie>(string, {
+  duplicateProps: ['TextureData'],
+  throwOnDuplicate: true,
+});
 console.timeEnd();
 
-console.time();
-const parsed2 = JSON.parse(string);
-console.timeEnd();
+// console.time();
+// const parsed2 = JSON.parse(string);
+// console.timeEnd();
 
-console.log();
+console.log(parsed);
 
 console
