@@ -4,8 +4,9 @@
     "test": "mocha test",
     "prepare": "tsc"
   },
-  "name": "fortnite-replay-parser",
-  "description": "A libary created to parse Fortnite replays in Node",
+  "name": "json-parser",
+  "description": "Custom json parser that does cool things",
+  "version": "1.0.0",
   "main": "dist/index.js",
   "devDependencies": {
     "@types/node": "^18.7.2",
