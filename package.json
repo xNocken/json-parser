@@ -7,7 +7,7 @@
   "name": "json-parser",
   "description": "Custom json parser that does cool things",
   "version": "1.0.0",
-  "main": "dist/index.js",
+  "main": "dist/src/index.js",
   "devDependencies": {
     "@types/node": "^18.7.2",
     "@typescript-eslint/eslint-plugin": "^5.33.0",
@@ -23,6 +23,6 @@
   },
   "author": "xNocken",
   "license": "MIT",
-  "types": "./dist/index.d.ts",
+  "types": "./dist/src/index.d.ts",
   "files": ["dist", "src"]
 }
